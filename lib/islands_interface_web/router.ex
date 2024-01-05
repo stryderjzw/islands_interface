@@ -8,6 +8,7 @@ defmodule IslandsInterfaceWeb.Router do
     plug :put_root_layout, html: {IslandsInterfaceWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug IslandsInterfaceWeb.Plugs.Locale, "en"
   end
 
   pipeline :api do
