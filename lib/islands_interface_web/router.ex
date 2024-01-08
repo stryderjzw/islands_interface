@@ -21,6 +21,7 @@ defmodule IslandsInterfaceWeb.Router do
     get "/", PageController, :home
     get "/hello", HelloController, :index
     get "/hello/:messenger", HelloController, :show
+    post "/test", PageController, :test
   end
 
   # Other scopes may use custom stacks.
