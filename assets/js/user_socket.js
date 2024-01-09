@@ -109,4 +109,37 @@ function add_player(channel, player) {
 }
 window.add_player = add_player
 
+function position_island(channel, player, island, row, col) {
+  var params = {"player": player, "island": island, "row": row, "col": col}
+  channel.push("position_island", params)
+    .receive("ok", response => {
+      console.log("Island positioned!", response)
+    })
+    .receive("error", response => {
+      console.log("Unable to position island.", response)
+    })
+}
+window.position_island = position_island
+
+function set_islands(channel, player) {
+  channel.push("set_islands", player) 
+    .receive("ok", response => {
+      console.log("Here is the board: ")
+      console.dir(response.board)
+    })
+    .receive("error", response => {
+      console.log("Unable to set islands for: " + player, response)
+    })
+}
+window.set_islands = set_islands
+
+function guess_coordinate(channel, player, row, col) {
+  var params = {"player": player, "row": row, "col": col}
+  channel.push("guess_coordinate", params)
+    .receive("error", response => {
+      console.log("Unable to guess a coordinate: " + player, response)
+    })
+}
+window.guess_coordinate = guess_coordinate
+
 export default socket
