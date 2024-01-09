@@ -10,10 +10,21 @@ defmodule IslandsInterfaceWeb.GameChannel do
 
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client
-  @impl true
   def handle_in("hello", payload, socket) do
     broadcast!(socket, "said_hello", payload)
     {:noreply, socket}
+  end
+
+  def handle_in("new_game", _payload, socket) do
+    "game:" <> player = socket.topic
+
+    case GameSupervisor.start_game(player) do
+      {:ok, _pid} ->
+        {:reply, :ok, socket}
+
+      {:error, reason} ->
+        {:reply, {:error, %{reason: inspect(reason)}}, socket}
+    end
   end
 
   # It is also common to receive messages from the client and

@@ -63,21 +63,21 @@ socket.connect()
 //   .receive("ok", resp => { console.log("Joined successfully", resp) })
 //   .receive("error", resp => { console.log("Unable to join", resp) })
 
-// function new_channel(subtopic, screen_name) {
-//   return socket.channel("game:" + subtopic, {screen_name: screen_name})
-// }
-// window.new_channel = new_channel
+function new_channel(subtopic, screen_name) {
+  return socket.channel("game:" + subtopic, {screen_name: screen_name})
+}
+window.new_channel = new_channel
 
-// function join(channel) {
-//   channel.join()
-//     .receive("ok", response => {
-//       console.log("Joined successfully!", response)
-//     })
-//     .receive("error", response => {
-//       console.log("Unable to join", reponse)
-//     })
-// }
-// window.join = join
+function join(channel) {
+  channel.join()
+    .receive("ok", response => {
+      console.log("Joined successfully!", response)
+    })
+    .receive("error", response => {
+      console.log("Unable to join", reponse)
+    })
+}
+window.join = join
 
 // function say_hello(channel, greeting) {
 //   channel.push("hello", {"message": greeting})
@@ -89,5 +89,16 @@ socket.connect()
 //     })
 // }
 // window.say_hello = say_hello
+
+function new_game(channel) {
+  channel.push("new_game")
+    .receive("ok", response => {
+      console.log("New Game!", response)
+    })
+    .receive("error", response => {
+      console.log("Unable to start a new game.", response)
+    })
+}
+window.new_game = new_game
 
 export default socket
