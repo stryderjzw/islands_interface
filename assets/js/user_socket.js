@@ -52,13 +52,42 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 //
 // Finally, connect to the socket:
 socket.connect()
+// window.socket = socket
 
 // Now that you are connected, you can join channels with a topic.
 // Let's assume you have a channel with a topic named `room` and the
 // subtopic is its id - in this case 42:
-let channel = socket.channel("room:42", {})
-channel.join()
-  .receive("ok", resp => { console.log("Joined successfully", resp) })
-  .receive("error", resp => { console.log("Unable to join", resp) })
+
+// let channel = socket.channel("game:moon", {screen_name: "moon"})
+// channel.join()
+//   .receive("ok", resp => { console.log("Joined successfully", resp) })
+//   .receive("error", resp => { console.log("Unable to join", resp) })
+
+// function new_channel(subtopic, screen_name) {
+//   return socket.channel("game:" + subtopic, {screen_name: screen_name})
+// }
+// window.new_channel = new_channel
+
+// function join(channel) {
+//   channel.join()
+//     .receive("ok", response => {
+//       console.log("Joined successfully!", response)
+//     })
+//     .receive("error", response => {
+//       console.log("Unable to join", reponse)
+//     })
+// }
+// window.join = join
+
+// function say_hello(channel, greeting) {
+//   channel.push("hello", {"message": greeting})
+//     .receive("ok", response => {
+//       console.log("Hello", response.message)
+//     })
+//     .receive("error", response => {
+//       console.log("Unable to say hello to the channel.", response.message)
+//     })
+// }
+// window.say_hello = say_hello
 
 export default socket
