@@ -101,4 +101,12 @@ function new_game(channel) {
 }
 window.new_game = new_game
 
+function add_player(channel, player) {
+  channel.push("add_player", player)
+    .receive("error", response => {
+      console.group("Unable to add new player:" + player, response)
+    })
+}
+window.add_player = add_player
+
 export default socket

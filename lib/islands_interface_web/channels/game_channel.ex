@@ -10,6 +10,7 @@ defmodule IslandsInterfaceWeb.GameChannel do
 
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client
+  @impl true
   def handle_in("hello", payload, socket) do
     broadcast!(socket, "said_hello", payload)
     {:noreply, socket}
@@ -27,13 +28,21 @@ defmodule IslandsInterfaceWeb.GameChannel do
     end
   end
 
-  # It is also common to receive messages from the client and
-  # broadcast to everyone in the current topic (game:lobby).
-  @impl true
-  def handle_in("shout", payload, socket) do
-    broadcast(socket, "shout", payload)
-    {:noreply, socket}
+  def handle_in("add_player", player, socket) do
+    case Game.add_player(via(socket.topic), player) do
+      :ok ->
+        broadcast!(socket, "player_added", %{message: "New player just joined: " <> player})
+        {:noreply, socket}
+
+      {:error, reason} ->
+        {:reply, {:error, %{reason: inspect(reason)}}, socket}
+
+      :err ->
+        {:reply, {:error, %{}}, socket}
+    end
   end
+
+  defp via("game:" <> player), do: Game.via_tuple(player)
 
   # Add authorization logic here as required.
   defp authorized?(_payload) do
