@@ -105,8 +105,8 @@ defmodule IslandsInterfaceWeb.GameChannel do
 
   defp via("game:" <> player), do: Game.via_tuple(player)
 
-  # Add authorization logic here as required.
-  defp authorized?(_payload) do
-    true
-  end
+  # # Add authorization logic here as required.
+  # defp authorized?(_payload) do
+  #   true
+  # end
 end
