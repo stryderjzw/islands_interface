@@ -1,0 +1,39 @@
+<div class="flex flex-col items-center min-h-screen bg-gray-100 p-2">
+  <h1 class="text-2xl font-bold my-8">Islands Game</h1>
+
+  <%= if @game_started do %>
+    <div class="grid grid-cols-2 gap-40">
+      <!-- Player 1 Board -->
+      <div>
+        <h2 class="text-xl font-semibold mb-4 text-center"><%= @player1.name %></h2>
+        <div class="grid grid-cols-10 gap-1">
+          <%= for row <- @player1.board do %>
+            <%= for cell <- row do %>
+              <div class="w-10 h-10 bg-blue-300 border border-gray-400">
+                <!-- Cell content here -->
+                <p>1</p>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <!-- Player 2 Board -->
+      <div>
+        <h2 class="text-xl font-semibold mb-4 text-center"><%= @player2.name %></h2>
+        <div class="grid grid-cols-10 gap-1">
+          <%= for row <- @player2.board do %>
+            <%= for cell <- row do %>
+              <div class="w-10 h-10 bg-blue-300 border border-gray-400">
+                <!-- Cell content here -->
+                <p>2</p>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <h2>Join Game Form</h2>
+    <.join_game_form room_name={@room_name} player_name={@player_name} />
+  <% end %>
+</div>

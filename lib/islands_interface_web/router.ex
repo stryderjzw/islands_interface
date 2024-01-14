@@ -18,7 +18,7 @@ defmodule IslandsInterfaceWeb.Router do
   scope "/", IslandsInterfaceWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", IslandsLive
     get "/hello", HelloController, :index
     get "/hello/:messenger", HelloController, :show
     post "/test", PageController, :test
