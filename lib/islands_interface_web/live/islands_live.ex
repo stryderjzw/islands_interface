@@ -3,58 +3,26 @@ defmodule IslandsInterfaceWeb.IslandsLive do
 
   alias IslandsEngine.{Game, GameSupervisor}
 
+  embed_templates "islands_states/*"
+
   def mount(_params, _session, socket) do
     {:ok,
      assign(socket,
-       game_started: false,
+       game_state: :initialized,
        game_pid: nil,
        room_name: "",
        player_name: "",
        player1: nil,
-       player2: nil
+       player2: nil,
+       game_board: Enum.map(1..10, fn _ -> Enum.map(1..10, fn _ -> 0 end) end)
      )}
   end
 
   attr :room_name, :string, required: true
   attr :player_name, :string, required: true
+  def join_game_form(assigns)
 
-  def join_game_form(assigns) do
-    ~H"""
-    <form id="join_game_form" phx-submit="form_submitted">
-      <div class="mb-4">
-        <label for="player_name" class="block text-sm font-semibold text-gray-700">Player Name</label>
-        <input
-          type="text"
-          id="player_name"
-          name="player_name"
-          value={@player_name}
-          required
-          class="mt-1 block w-full px-3 py-2 bg-white border rounded-md text-gray-700 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-        />
-      </div>
-      <div class="mb-6">
-        <label for="room_name" class="block text-sm font-semibold text-gray-700">
-          Room Name (optional)
-        </label>
-        <input
-          type="text"
-          id="room_name"
-          name="room_name"
-          value={@room_name}
-          class="mt-1 block w-full px-3 py-2 bg-white border rounded-md text-gray-700 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-        />
-      </div>
-      <div class="flex justify-center">
-        <button
-          type="submit"
-          class="px-6 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700"
-        >
-          Join Game
-        </button>
-      </div>
-    </form>
-    """
-  end
+  def set_islands(assigns)
 
   def handle_event("form_submitted", params, socket) do
     %{"room_name" => room_name, "player_name" => player_name} = params
@@ -91,9 +59,11 @@ defmodule IslandsInterfaceWeb.IslandsLive do
         game_state.player2
       end
 
+    IO.puts(inspect(player1))
+
     socket
     |> assign(game_pid: game_pid)
-    |> assign(game_started: true)
+    |> assign(game_state: game_state.rules.state)
     |> assign(:player1, player1)
     |> assign(:player2, player2)
   end

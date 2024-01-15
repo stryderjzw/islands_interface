@@ -1,0 +1,33 @@
+<form id="join_game_form" phx-submit="form_submitted">
+  <div class="mb-4">
+    <label for="player_name" class="block text-sm font-semibold text-gray-700">Player Name</label>
+    <input
+      type="text"
+      id="player_name"
+      name="player_name"
+      value={@player_name}
+      required
+      class="mt-1 block w-full px-3 py-2 bg-white border rounded-md text-gray-700 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+    />
+  </div>
+  <div class="mb-6">
+    <label for="room_name" class="block text-sm font-semibold text-gray-700">
+      Room Name (optional)
+    </label>
+    <input
+      type="text"
+      id="room_name"
+      name="room_name"
+      value={@room_name}
+      class="mt-1 block w-full px-3 py-2 bg-white border rounded-md text-gray-700 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+    />
+  </div>
+  <div class="flex justify-center">
+    <button
+      type="submit"
+      class="px-6 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700"
+    >
+      Join Game
+    </button>
+  </div>
+</form>

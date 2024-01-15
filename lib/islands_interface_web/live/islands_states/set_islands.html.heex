@@ -1,0 +1,30 @@
+<div class="grid grid-cols-2 gap-40">
+  <!-- Player 1 Board -->
+  <div>
+    <h2 class="text-xl font-semibold mb-4 text-center"><%= @player1.name %></h2>
+    <div class="grid grid-cols-10 gap-1">
+      <%= for row <- @game_board do %>
+        <%= for cell <- row do %>
+          <div class="w-10 h-10 bg-blue-300 border border-gray-400">
+            <!-- Cell content here -->
+            <p>1</p>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <!-- Player 2 Board -->
+  <div>
+    <h2 class="text-xl font-semibold mb-4 text-center"><%= @player2.name %></h2>
+    <div class="grid grid-cols-10 gap-1">
+      <%= for row <- @game_board do %>
+        <%= for cell <- row do %>
+          <div class="w-10 h-10 bg-blue-300 border border-gray-400">
+            <!-- Cell content here -->
+            <p>2</p>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
